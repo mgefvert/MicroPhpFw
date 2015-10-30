@@ -11,11 +11,11 @@ files. Should be secure enough, incredibly lightweight, and yet easy enough
 to be used with a minimum of introduction.
 
 Since we use MarkDown for most of the pages, it should also be editable by
-just about anyone<sup>*)</sup>.
+just about anyone<sup>1)</sup>.
 
 
 @footer {
 
-<sup>*)</sup> <i>Some</i> actual skills may be necessary.
+<sup>1)</sup> *Some* actual skills may be necessary.
 
 }
