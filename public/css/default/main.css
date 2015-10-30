@@ -1,0 +1,6 @@
+.content { width: 90; max-width: 1200px; margin: 0 auto; }
+.footer  { font-size: 9pt; }
+
+*        { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+h1       { margin: 2em 0; }
+hr       { color: #ccc; margin-top: 3em; }

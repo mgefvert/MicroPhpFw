@@ -1,0 +1,15 @@
+RewriteEngine on
+
+# Main entry point
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([\w\-/]*)(.html)?$ sys/entrypoint.php [END,L,NC]
+
+# Prevent access to .files
+RewriteRule ^\. - [R=404,L,NC]
+RewriteRule /\. - [R=404,L,NC]
+
+# Prevent access to internal resources
+RewriteRule \.md$ - [R=404,L,NC]
+RewriteRule \.phtml$ - [R=404,L,NC]
+RewriteRule \.ini$ - [R=404,L,NC]
+RewriteRule ^sys - [R=404,L,NC]
