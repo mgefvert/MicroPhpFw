@@ -4,12 +4,281 @@
         <link rel="stylesheet" href="doc.css"/>
     </head>
     <body>
-        <h1>Microframework Documentation Index</h1>
-        <ul>
-            <li><a href="pages.html">Pages</a></li>
-            <li><a href="styles.html">Styles</a></li>
-            <li><a href="settings.html">Settings</a></li>
-            <li><a href="menus.html">Menus</a></li>
-        </ul>
+        <div class="bkg-main">
+            <div class="content">
+                <h1>Microframework Documentation</h1>
+                <p>How to build nice websites with very little :)</p>
+            </div>
+        </div>
+        <div class="content">
+
+            <h2>Table of Contents</h2>
+        
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#pages">Pages</a></li>
+                <li><a href="#master">Master Pages</a></li>
+                <li><a href="#sections">Master Page Sections</a></li>
+                <li><a href="#styles">Styles</a></li>
+                <li><a href="#menus">Menus</a></li>
+                <li><a href="#submenus">Submenus</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#markdown">Markdown Syntax</a></li>
+            </ul>
+        
+            <!-- Intro -->
+            <h2><a name="intro">Introduction</a></h2>
+            
+            <p>Micro PHP Framework is a microscopic framework for building websites 
+                based on a similar, much larger framework called Nifty PHP Framework.</p>
+            <p>The Micro PHP Framework is a completely text-based framework with templating 
+                capabilities, in less than 500 lines of PHP and JS code (aside from the JQuery 
+                and Markdown libraries).</p>
+            <p>There is no database, no editing support, no administration, just simple text
+                files. Should be secure enough, incredibly lightweight, and yet easy enough
+                to be used with a minimum of introduction.</p>
+            <p>Some of the features available includes:</p>
+            <ul>
+                <li>Easily handled <a href="#menus">menu system</a> suited for one or two levels of navigation
+                    (but the sky's the limit).</li>
+                <li>Small footprint, can deploy powerful websites in less than 1 MB.</li>
+                <li>Practically all pages can be edited with a simple text editor.</li>
+                <li>You can use HTML, PHP/HTML or <a href="#markdown">Markdown</a> - making it easy enough
+                    for just about "anyone" to maintain sites, once it's built.</li>
+                <li>Extensible <a href="#styles">template system</a> - switch site layout in seconds.</li>
+            </ul>
+            
+            <!-- Pages -->
+            <h2><a name="pages">Pages</a></h2>
+            
+            <p>Everything revolves around a page. A page is a document, that consists either
+                of HTML, PHP code mixed in with HTML, or something called <a href="#markdown">Markdown</a> - an
+                easily used formatting language.</p>
+            <p>Pages reside under the path <tt>/pages</tt>. A page called <tt>/pages/info.html</tt> 
+                can be reached using a url like <tt>http://your-site.com/info</tt> - nothing else is required.
+                The file extension doesn't matter - as long as it's a recognized one - the system
+                will still find the page and serve it up.</p>
+            <table>
+                <tr>
+                    <th>Page filename</th>
+                    <th>URL that can reach it</th>
+                </tr>
+                <tr>
+                    <td>/pages/index.md</td>
+                    <td>http://your-site.com/<br>http://your-site.com/index<br>http://your-site.com/index.html</td>
+                </tr>
+                <tr>
+                    <td>/pages/info.html</td>
+                    <td>http://your-site.com/info<br>http://your-site.com/info.html</td>
+                </tr>
+                <tr>
+                    <td>/pages/products/index.md</td>
+                    <td>http://your-site.com/products<br>http://your-site.com/products/index<br>http://your-site.com/products/index.html</td>
+                </tr>
+                <tr>
+                    <td>/pages/about/contact-us.html</td>
+                    <td>http://your-site.com/about/contact-us<br>http://your-site.com/about/contact-us.html</td>
+                </tr>
+                <tr>
+                    <td>/pages/x/y/z.phtml</td>
+                    <td>http://your-site.com/x/y/z<br>http://your-site.com/x/y/z.html</td>
+                </tr>
+            </table>
+            <p>There are three different extensions you can use:</p>
+            <ul>
+                <li><b>.html</b> - just plain HTML embedded in the master template and served up</li>
+                <li><b>.phtml</b> - just plain HTML, but mixed in with PHP; the page is evaluated as
+                    a PHP page before serving it to the user.</li>
+                <li><b>.md</b> - a Markdown page, which can contain HTML as well, but mostly uses
+                    the Markdown style and formatting to build a web page.</li>
+            </ul>
+
+            <!-- Master pages -->
+            <h2><a name="master">Master Pages</a></h2>
+            
+            <p>Each page is fed through the "master page" in the system. The master page determines
+                the layout, the HTML structure, and so on - basically, the results of a particular
+                page it just inserted at the appropriate location in a new, complete page.</p>
+            <p>The master page is located under <tt>/pages/_master/default.phtml</tt> - since the
+                default theme is called "default". By adding a different theme, e.g. "business",
+                the master template would be called <tt>/pages/_master/_business.phtml</tt>.</p>
+            <p>Consider the following page:</p>
+            <code>&lt;h1>Hello, world!&lt;/h1>
+&lt;p>This is my first page!&lt;/p></code>
+            <p>When this gets fed (as "content") into the master page looking like this:</p>
+            <code>&lt;html>
+    &lt;head>
+        &lt;title>My website&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div id="content">
+            <tt>&lt;?= $this->content ?></tt>
+        &lt;/div>
+        <tt>&lt;? if ($this->footer): ?></tt>
+            &lt;div id="footer">
+                <tt>&lt;?= $this->footer ?></tt>
+            &lt;/div>
+        <tt>&lt;? endif; ?></tt>
+    &lt;/body>
+&lt;/html></code>
+            <p>The end result is going to look like this:</p>
+            <code>&lt;html>
+    &lt;head>
+        &lt;title>My website&lt;/title>
+    &lt;/head>
+    &lt;body>
+        &lt;div id="content">
+            &lt;h1>Hello, world!&lt;/h1>
+            &lt;p>This is my first page!&lt;/p>
+        &lt;/div>
+    &lt;/body>
+&lt;/html></code>
+
+            <!-- Sections -->
+            <h2><a name="sections">Master Page Sections</a></h2>
+            
+            <p>All of the normal page content goes into a section called "content", available in the
+                master page as <tt>$this->content</tt>. If you want to force part of a page into a
+                different section, as in the "footer" section above, you can make that happen using
+                this kind of code in the page:</p>
+            <code>&lt;h1>Hello, world!&lt;/h1>
+&lt;p>This is my first page!&lt;/p>
+
+<tt>@footer {</tt>
+&lt;p>And this text goes into the footer.&lt;/p>
+<tt>}</tt></code>
+            <p>Of course, since the master page is always a <tt>.phtml</tt> file - otherwise the
+                template expansion wouldn't work - there is no limit to the amount of PHP code you
+                can embed in your system.</p>
+            
+            <!-- Styles -->
+            <h2><a name="styles">Styles</a></h2>
+            
+            <p>The ability to switch between different master pages is regulated in the settings.ini
+                file.</p>
+            <code>style = default</code>
+            <p>...is the default style; and the system will then look for a master template as
+                <tt>/pages/_master/default.phtml</tt> and all of the CSS files should, by convention,
+                be stored as <tt>/css/default/*.css</tt>.</p>
+            <p>By switching this variable to anything else, you may switch the global style within
+                seconds. The system will simply look for a different master page, which will then in
+                turn load all the dependent CSS stylesheets, scripts and so on.</p>
+            <p>There is also a predefined way of using two different master pages for the same site -
+                if you want a radically different first page and more conventional subpages after that.
+                Instead of naming your master page <tt>default.phtml</tt>, you may give it the following
+                names:</p>
+            <ul>
+                <li><b><i>style</i>-front.phtml</b> - the index page for the site.</li>
+                <li><b><i>style</i>-page.phtml</b> - subpages master page.</li>
+            </ul>
+            <p>So having two files, default-front.phtml and default-page.phtml will give you two
+                different layouts to work with.</p>
+            
+            <!-- Menus -->
+            <h2><a name="menus">Menus</a></h2>
+            
+            <p>The way that the framework implements menus is to simply use a separate menu definition
+                file - <tt>menu.ini</tt> - and serve it up as a series of <tt>ul/li</tt> elements, with
+                submenus embedded inside a single <tt>li</tt> element.</p>
+            <p>This is nothing extravagant, but there is a minimal CSS ruleset and javascript that
+                handles this; this can be deleted or improved upon without difficulty.</p>
+            <p>The menu file might look like this:</p>
+            <code>[main]
+Main            = /
+
+Company         = about/company
+Company/About   = about/company
+Company/Contact = about/contact-us
+
+Products        = products
+Products/MV8000 = products/mv8000
+Products/Z35    = products/z35
+
+Solutions       = solutions</code>
+            <p>Each page is precededed by the title of page, and then a reference to the URL. If a submenu
+                is desired, just separate the heading and title with a slash, i.e. "Company/About".</p>
+            <p>You can easily embed a direct link in the menu, like this:</p>
+            <code>Our Partner = http://www.partner.com/</code>
+            <p>The main menu can always be embedded in a page - preferably the master page - by using
+                this statement:</p>
+            <code>&lt;?= Menu::main() ?></code>
+
+            <!-- Submenus -->
+            <h2><a name="submenus">Submenus</a></h2>
+            
+            <p>You can also embed submenus - menus different from the main menu - by adding separate sections
+                like this:</p>
+            <code>[about]
+Company/About   = about/company
+Company/Contact = about/contact-us
+</code>
+            <p>The system will then try to match the URL for the current page being displayed, and try
+                to find the submenu that matches best (by comparing URLs). The submenu will then be rendered
+                with this call:</p>
+            <code>&lt;?= Menu::submenu() ?></code>
+            <p>This will give you a completely separate <tt>ul/li</tt> menu that can be embedded in a different
+                section of the page.</p>
+            
+            <!-- Settings -->
+            <h2><a name="settings">Settings</a></h2>
+            
+            <p>The standard settings file looks like this:</p>
+            <code>title       = "Company"
+description = "Main web page for company.com"
+og_image    = "http://company.com/images/default.jpg"
+og_sitename = "company.com"
+
+email       = "info@company.com"
+
+style       = default
+cache       = false</code>
+            <p>There are actually only two variables that the system uses: <b>style</b> and <b>cache</b>. The
+                rest are quite simply inserted into the master page as <tt>$this-><i>variable</i></tt>. This can
+                be useful to easily customize the master page with different titles or descriptions.</p>
+            <p>There is nothing that prevents you from adding additional variables. They will all be available
+                in the global variable <tt>$settings['<i>variable</i>']</tt> and inside the master template 
+                as <tt>$this-><i>variable</i></tt>.</p>
+            <ul>
+                <li><b>style</b> is used to select the master page, as previously discussed.</li>
+                <li><b>cache</b> can be either "true" or "false"; it's only purpose is to add a <tt>Cache:</tt> HTTP
+                    header with a timeout of one hour - for HTML and Markdown pages. PHTML pages will never be cached,
+                    as they should be evaluated each time.</li>
+            </ul>
+            
+            <!-- Markdown -->
+            <h2><a name="markdown">Markdown Syntax</a></h2>
+            
+            <p>Markdown is a kind of cool way of writing perfectly normal text and have the system automatically
+                create HTML markup from the text. This framework relies on the implementation from
+                <a href="https://michelf.ca/projects/php-markdown/">Michel Fortin</a>.</p>
+            <p>The idea is that you should be able to write text something like this:</p>
+            <code>Welcome
+=======
+
+You have the following options when trying to evaluate **this system**.
+
+* Option 1
+* Option 2
+* Option 3</code>
+
+            <p>And this will be rendered as:</p>
+            <code>&lt;h1>Welcome&lt;/h1>
+            
+&lt;p>You have the following options when trying to evaluate &lt;em>this system&lt;/em>.&lt;/p>
+
+&lt;ul>
+    &lt;li>Option 1&lt;/li>
+    &lt;li>Option 2&lt;/li>
+    &lt;li>Option 3&lt;/li>
+&lt;/ul></code>
+            
+            <p>For an introduction of how to write Markdown text, please see 
+                <a href="https://michelf.ca/projects/php-markdown/concepts/">PHP Markdown: Concepts</a>, or, 
+                for a complete reference, <a href="https://daringfireball.net/projects/markdown/">Daring Fireball: Markdown</a>.</p>
+
+            <p>&nbsp;</p>
+            <p>-- End of Text --</p>
+                
+        </div>
     </body>
 </html>

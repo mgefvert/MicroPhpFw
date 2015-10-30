@@ -1,3 +1,17 @@
-body { padding: 0; margin: 20px; }
-* { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
-h1 { font-weight: normal; }
+*    { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+tt   { font-family: 'Consolas', 'Courier New', 'Courier', monospace; color: #080; white-space: nowrap; }
+code { display: block; white-space: pre; padding: 0.7em 20px 0.8em 8px; background: #eef; 
+        margin-left: 40px; border: 1px solid #ccf; border-radius: 3px; 
+        font-family: 'Consolas', 'Courier New', 'Courier', monospace; font-size: 10pt; }
+
+body { padding: 0; margin: 50px 0 8em 0; }
+h1 { font-weight: normal; font-size: 36pt; margin: 0; }
+h2 { font-weight: normal; font-size: 24pt; margin: 1em 0 0.5em 0; }
+
+table { border-collapse: collapse; margin-left: 40px; font-size: 10pt; }
+table td { border: 1px solid #ccc; padding: 4px 20px 4px 8px; vertical-align: top; }
+table th { border: 1px solid #ccc; padding: 4px 20px 4px 8px; text-align: left; font-weight: normal; background: #eef; }
+
+
+.content { width: 90%; max-width: 1024px; margin: 0 auto; }
+.bkg-main { background: linear-gradient(to bottom, #c7a, #c68); color: white; padding: 50px 0 50px 0; }
