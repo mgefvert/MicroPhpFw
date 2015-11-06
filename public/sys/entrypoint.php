@@ -15,7 +15,7 @@ try {
 
     // Select master template
     $master = '_master/' . $settings['style'] . '-' . ($page->page == 'index' ? 'front' : 'page') . '.phtml';
-    if (!file_exists($master))
+    if (!file_exists('../pages/' . $master))
         $master = '_master/' . $settings['style'] . '.phtml';
 
     $result = Template::run($master, $settings);
