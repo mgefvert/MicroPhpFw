@@ -302,7 +302,7 @@ class MarkdownExtra extends \Michelf\Markdown {
 	#
 		if ($text === '') return array('', '');
 
-		# Regex to check for the presense of newlines around a block tag.
+		# Regex to check for the presence of newlines around a block tag.
 		$newline_before_re = '/(?:^\n?|\n\n)*$/';
 		$newline_after_re = 
 			'{
