@@ -1,0 +1,14 @@
+{
+    "name": "mike/kvag.gefvert.org",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mats Gefvert",
+            "email": "mats@gefvert.org"
+        }
+    ],
+    "require": {
+        "components/jquery": "^3.3",
+        "twbs/bootstrap": "^4.1"
+    }
+}
