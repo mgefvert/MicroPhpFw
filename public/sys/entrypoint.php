@@ -8,6 +8,15 @@ try {
     // Initialize system
     init();
 
+    if (a($_REQUEST, 'mode')) {
+        $result = Editor::handle($page->template);
+        if (is_object($result)) {
+            $result = json_encode($result);
+        }
+        echo $result;
+        return;
+    }
+
     // Render the actual content page
     $settings['class']   = 'page-' . implode('-', $page->parts);
     foreach($page->render() as $key => $html)
