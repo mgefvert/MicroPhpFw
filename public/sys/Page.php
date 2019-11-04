@@ -74,25 +74,27 @@ class Page
 
             case TEMPLATE_HTML:
                 $result = file_get_contents(root() . '/' . $this->template);
-                return $this->split($result, 'content');
+                return $this->parseSections($result, 'content');
 
             case TEMPLATE_PHTML:
                 $result = Template::run($this->template);
-                return $this->split($result, 'content');
+                return $this->parseSections($result, 'content');
 
             case TEMPLATE_MD:
                 $source = file_get_contents(root() . '/' . $this->template);
-                $result = $this->split($source, 'content');
+                $result = $this->parseSections($source, 'content');
                 foreach(array_keys($result) as $key)
-                    $result[$key] = \Michelf\Markdown::defaultTransform($result[$key]);
+                    $result[$key] = \Michelf\MarkdownExtra::defaultTransform($result[$key]);
                 return $result;
         }
 
         throw new Exception('Template not found');
     }
 
-    public function split($html, $defaultsection)
+    public function parseSections($html, $defaultsection)
     {
+        global $settings;
+
         $section = $defaultsection;
         $result = [$section => ''];
 
@@ -100,9 +102,14 @@ class Page
         foreach($rows as $row)
         {
             $s = trim($row);
-            if (substr($s, 0, 1) == '@' && substr($s, -1) == '{')
+
+            if (preg_match('|^@(\w+)\s*\((.*)\)$|', $s, $matches))
             {
-                $section = trim(substr($s, 1, -2));
+                $settings[$matches[1]] = trim($matches[2]);
+            }
+            else if (preg_match('|^@(\w+)\s*\{|', $s, $matches))
+            {
+                $section = $matches[1];
                 if (!isset($result[$section]))
                     $result[$section] = '';
             }

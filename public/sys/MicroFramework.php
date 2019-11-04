@@ -10,6 +10,17 @@ session_start();
 if (!isset($_SESSION['xsrf']))
     $_SESSION['xsrf'] = rand(1000, 0x7FFFFFFF);
 
+function a($var, $key)
+{
+    if (is_object($var))
+        return isset($var->$key) ? $var->$key : null;
+
+    if (is_array($var))
+        return isset($var[$key]) ? $var[$key] : null;
+
+    return null;
+}
+
 function html($str)
 {
     return htmlspecialchars($str, ENT_QUOTES);
